@@ -1,0 +1,9 @@
+家 = Jia1 = home / family
+人 = ren2 = people
+家人 = jia1 ren2 = family member
+你 = ni3 = you
+好 = hao3 = good
+女 = nv3 = female
+女人 = nv3 ren2 = woman
+你好！= ni3 hao3 = hello (you good)
+儿子 = er2 zi3 = son
