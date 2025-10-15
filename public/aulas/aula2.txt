@@ -1,0 +1,18 @@
+字 = zi4 = Chinese character (one world, multiple meanings)
+词 = ci2 = Chinese vocabulary (often have 2 Chinese characters, but unique meaning)
+女儿 = nv3 er2 = daughter
+男人 = nan2 ren2 = man (male person)
+吗 = ma = question mark (end of the sentence expecting yes or no answer)
+你好吗？ =ni3 hao3 ma = how are you (you good, yes or no?)
+我 = wo3 = I (eu)
+很 = hen3 = very (adv)
+我很好。 = wo3 hen3 hao3 = i very good.
+是 = shi4 = verb to be (for definition)
+我是人。 = wo3 shi4 ren2 = i am people.
+我是男人。 = wo3 shi4 nan2 ren2 = I am man.
+你是女人。 = ni3 shi4 nv3 ren2 = you are woman.
+你是女人吗？ = ni3 shi4 nv3 ren2 ma = are you woman?
+也 = ye3 = also
+我也很好。 = wo3 ye3 hen3 hao3 = i am also very well.
+爸爸 = ba4 ba = Dad, father
+妈妈 = Ma1 ma = Mom, mother
