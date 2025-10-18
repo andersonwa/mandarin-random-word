@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 
 export default function App() {
-  const [aula, setAula] = useState(0);
-  const [randomLine, setRandomLine] = useState("");
-  const [file, setFile] = useState([]);
+  const [aula, setAula] = useState(1);
+  const [classWords, setClassWords] = useState([]);
+  const [tempRandomList, setTempRandomList] = useState([]);
+  const [randomLine, setRandomLine] = useState(null);
   const [showPinyin, setShowPinyin] = useState(false);
   const [showTranslation, setShowTranslation] = useState(false);
 
-  const getRandomLine = async () => {
+  const getClass = async () => {
     setShowPinyin(false)
     setShowTranslation(false)
-    await fetch(`aulas/aula${aula}.txt`)
+    setRandomLine(null)
+    await fetch(`${document.location.pathname}/aulas/aula${aula}.txt`)
       .then((res) => res.text())
       .then((text) => {
         const allLines = text
@@ -20,15 +22,29 @@ export default function App() {
 
 
         if (allLines.length === 0) return;
-        setFile(allLines)
-        const index = Math.floor(Math.random() * allLines.length);
-        setRandomLine(allLines[index]);
+        setTempRandomList(allLines);
+        setClassWords(allLines);
       })
       .catch((err) => console.error("Error loading file:", err));
   };
 
+  const getRandomWordFromList = () => {
+    setShowPinyin(false)
+    setShowTranslation(false)
+    const index = Math.floor(Math.random() * tempRandomList.length);
+    const tempArray = [...tempRandomList]
+    const leftItems = tempArray.splice(index, 1)
+
+    setRandomLine(leftItems[0])
+    setTempRandomList(tempArray)
+
+    if (tempArray.length === 0) {
+      setTempRandomList(classWords)
+    }
+  }
+
   return (
-    <div class="@container">
+    <div className="@container">
       <div className="flex flex-col flex md:flex-row sm:flex-col items-center justify-center min-h-screen">
         <div className="flex flex-col items-center w-full justify-center min-h-screen bg-gray-100 text-center p-6 flex-auto">
           <h1 className="text-2xl font-bold mb-4">🎲 Random Line Picker</h1>
@@ -40,14 +56,24 @@ export default function App() {
             onChange={(e)=> setAula(e.target.value)}
           />
           <button
-            onClick={getRandomLine}
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700"
+            onClick={getClass}
+            className="bg-blue-500 cursor-pointer text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 mb-5"
           >
-            Get Random Line
+            Get Class Words
           </button>
+
+          {classWords.length > 0 && <div className="flex gap-5">
+            <button
+              onClick={getRandomWordFromList}
+              className="bg-gray-500 cursor-pointer text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-700"
+            >
+              Get Word
+            </button>
+          </div>}
 
           {randomLine && (
             <div className="mt-6 text-lg text-gray-800">
+              <p><strong>Count:</strong> {tempRandomList.length}</p>
               <strong>Word:</strong> {randomLine.split("=")[0]}
               <p onClick={() => setShowPinyin(!showPinyin)}>
                 <strong>Pinyin:</strong> {showPinyin ? randomLine.split("=")[1] : 'Click to show'}
@@ -61,7 +87,7 @@ export default function App() {
         <div className="flex flex-col items-center w-full justify-center min-h-screen p-6 flex-auto">
           <div>
             <ul className="scroll-behavior">
-              {file.map((item, key) => <li key={key}><p>{item}</p></li>)}
+              {classWords.map((item, key) => <li key={key}><p>{item}</p></li>)}
             </ul>
           </div>
         </div>
