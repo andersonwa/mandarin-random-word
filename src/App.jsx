@@ -31,16 +31,20 @@ export default function App() {
   const getRandomWordFromList = () => {
     setShowPinyin(false)
     setShowTranslation(false)
-    const index = Math.floor(Math.random() * tempRandomList.length);
-    const tempArray = [...tempRandomList]
+
+    let tempArray = [...tempRandomList]
+
+    if (tempArray.length === 0) {
+      tempArray = [...classWords]
+    }
+
+    const index = Math.floor(Math.random() * tempArray.length);
     const leftItems = tempArray.splice(index, 1)
+
+    console.log(tempArray)
 
     setRandomLine(leftItems[0])
     setTempRandomList(tempArray)
-
-    if (tempArray.length === 0) {
-      setTempRandomList(classWords)
-    }
   }
 
   return (
@@ -73,7 +77,7 @@ export default function App() {
 
           {randomLine && (
             <div className="mt-6 text-lg text-gray-800">
-              <p><strong>Count:</strong> {tempRandomList.length}</p>
+              <p><strong>Count:</strong> {tempRandomList.length + 1}</p>
               <strong>Word:</strong> {randomLine.split("=")[0]}
               <p onClick={() => setShowPinyin(!showPinyin)}>
                 <strong>Pinyin:</strong> {showPinyin ? randomLine.split("=")[1] : 'Click to show'}
